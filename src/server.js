@@ -1,15 +1,16 @@
 import express from "express";
 import SocketIO from "socket.io";
 import morgan from "morgan";
+import path from "path";
 
 const app = express();
 const port = 4000;
 
 app.set("view engine", "pug");
-app.set("views", process.cwd() + "\\src\\views");
+app.set("views", path.join(__dirname, "/views"));
 
 app.use(morgan("dev"));
-app.use(express.static(process.cwd() + "\\src\\static"));
+app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => res.render("home"));
 
@@ -19,4 +20,4 @@ const server = app.listen(port, () =>
 
 const io = SocketIO.listen(server);
 
-io.on("connection", () => console.log("sombody "));
+io.on("connection", () => console.log("somebody "));
