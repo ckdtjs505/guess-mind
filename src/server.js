@@ -22,5 +22,8 @@ const io = SocketIO.listen(server);
 
 io.on("connection", socket => {
   console.log("User connect");
-  socket.on("newMessage", meg => console.log(meg));
+  socket.on("newMessage", meg => {
+    console.log("meg" + meg);
+    socket.broadcast.emit("messageNotif", meg);
+  });
 });
