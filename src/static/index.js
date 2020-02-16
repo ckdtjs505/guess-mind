@@ -3,11 +3,16 @@ const socket = io("/");
 
 function sendMessage(message) {
   socket.emit("newMessage", message);
-  return true;
+  console.log(`Me : ${message}`);
 }
 
-function handleMessageNotif(message) {
-  console.log("message : " + message);
+function setNickName(nickName) {
+  socket.emit("setNickname", nickName);
+}
+
+function handleMessageNotif(data) {
+  const { message, nickName } = data;
+  console.log(`${nickName} : ${message}`);
 }
 
 socket.on("messageNotif", handleMessageNotif);

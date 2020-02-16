@@ -22,8 +22,14 @@ const io = SocketIO.listen(server);
 
 io.on("connection", socket => {
   console.log("User connect");
-  socket.on("newMessage", meg => {
-    console.log("meg" + meg);
-    socket.broadcast.emit("messageNotif", meg);
+
+  socket.on("newMessage", message => {
+    socket.broadcast.emit("messageNotif", {
+      message,
+      nickName: socket.nickName || "Anon"
+    });
+  });
+  socket.on("setNickname", nickName => {
+    socket.nickName = nickName;
   });
 });
