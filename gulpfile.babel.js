@@ -2,8 +2,9 @@ import gulp from "gulp";
 import sass from "gulp-sass";
 import csso from "gulp-csso";
 import autoprefixer from "gulp-autoprefixer";
-import babel from "gulp-babel";
+import browserify from "gulp-browserify";
 import concat from "gulp-concat";
+import babel from "babelify";
 import del from "del";
 
 sass.compiler = require("node-sass");
@@ -38,11 +39,15 @@ function scripts() {
   return gulp
     .src(paths.scripts.src, { sourcemaps: true })
     .pipe(
-      babel({
-        presets: ["@babel/preset-env"]
+      browserify({
+        transform: [
+          babel.configure({
+            presets: ["@babel/preset-env"]
+          })
+        ]
       })
     )
-    .pipe(concat("index.js"))
+    .pipe(concat("main.js"))
     .pipe(gulp.dest(paths.scripts.dest));
 }
 
