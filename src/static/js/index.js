@@ -1,5 +1,19 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleMessageNotif = handleMessageNotif;
+
+function handleMessageNotif(data) {
+  var message = data.message,
+      nickName = data.nickName;
+  console.log("".concat(nickName, " : ").concat(message));
+}
+"use strict";
+
+var _chat = require("./chat");
+
 // eslint-disable-next-line no-undef
 var socket = io("/");
 
@@ -12,10 +26,4 @@ function setNickName(nickName) {
   socket.emit("setNickname", nickName);
 }
 
-function handleMessageNotif(data) {
-  var message = data.message,
-      nickName = data.nickName;
-  console.log("".concat(nickName, " : ").concat(message));
-}
-
-socket.on("messageNotif", handleMessageNotif);
+socket.on("messageNotif", _chat.handleMessageNotif);
