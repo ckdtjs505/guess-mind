@@ -26,11 +26,13 @@ body {
   .gameContainer {
     display: none;
   }
+
   &.loggedOut {
     .loginBox {
       display: block;
     }
   }
+
   &.loggedIn {
     .gameContainer {
       display: block;
