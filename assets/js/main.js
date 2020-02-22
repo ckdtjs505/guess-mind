@@ -1,10 +1,10 @@
 import "./login";
-import { socket } from "./login";
+import "./notification";
 
 const sendForm = document.getElementById("jsTest");
 
 sendForm.addEventListener("submit", e => {
   e.preventDefault();
   const input = sendForm.querySelector("input");
-  socket.emit("newMessage", input.value);
+  window.socket.emit("newMessage", input.value);
 });

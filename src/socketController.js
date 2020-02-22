@@ -1,5 +1,10 @@
+import { event } from "./variables";
+
 const socketController = socket => {
-  socket.on("setNickname", nickName => {
+  socket.on(event.SET_NICKNAME, nickName => {
+    socket.broadcast.emit(event.JOIN_NEWUSER, {
+      nickName
+    });
     socket.nickName = nickName;
   });
 

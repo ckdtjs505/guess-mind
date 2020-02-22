@@ -7,14 +7,12 @@ const LOGGED_IN = "loggedIn";
 
 const nickName = localStorage.getItem(NICKNAME);
 
-export const socket = io("/");
-
 const logIn = nickName => {
   // nickname을 socket에 지정한다.
-  socket.emit("setNickname", nickName);
+  window.socket.emit(window.global.SET_NICKNAME, nickName);
 };
 
-socket.on("messageNotif", data => {
+window.socket.on("messageNotif", data => {
   const div = document.createElement("div");
   div.innerHTML = `<br><a>${data.nickName}</a><div>${data.message} </div>`;
   body.appendChild(div);
