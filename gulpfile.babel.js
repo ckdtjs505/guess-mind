@@ -36,19 +36,21 @@ function styles() {
 }
 
 function scripts() {
-  return gulp
-    .src(paths.scripts.src, { sourcemaps: true })
-    .pipe(
-      browserify({
-        transform: [
-          babel.configure({
-            presets: ["@babel/preset-env"]
-          })
-        ]
-      })
-    )
-    .pipe(concat("main.js"))
-    .pipe(gulp.dest(paths.scripts.dest));
+  return (
+    gulp
+      .src(paths.scripts.src, { sourcemaps: true })
+      .pipe(
+        browserify({
+          transform: [
+            babel.configure({
+              presets: ["@babel/preset-env"]
+            })
+          ]
+        })
+      )
+      // .pipe(concat("main.js"))
+      .pipe(gulp.dest(paths.scripts.dest))
+  );
 }
 
 const clean = () => del(["src/static"]);

@@ -1,24 +1,10 @@
-const body = document.querySelector("body");
-const loginFrom = document.getElementById("jsLogin");
+import "./login";
+import { socket } from "./login";
 
-const NICKNAME = "nickname";
-const LOGGED_OUT = "loggedOut";
-const LOGGED_IN = "loggedIn";
+const sendForm = document.getElementById("jsTest");
 
-const nickName = localStorage.getItem(NICKNAME);
-if (nickName === null) {
-  body.className = LOGGED_OUT;
-} else {
-  body.className = LOGGED_IN;
-}
-
-const handleLoginForm = e => {
+sendForm.addEventListener("submit", e => {
   e.preventDefault();
-  const input = loginFrom.querySelector("input");
-  input.value = "";
-  localStorage.setItem(NICKNAME, input.value);
-};
-
-if (loginFrom) {
-  loginFrom.addEventListener("submit", handleLoginForm);
-}
+  const input = sendForm.querySelector("input");
+  socket.emit("newMessage", input.value);
+});
