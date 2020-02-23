@@ -5,6 +5,7 @@ const fireNotification = (message, bgcolor) => {
   const notification = document.createElement("div");
   notification.innerText = `${message}`; // div에 유저 이름 저장
   notification.style.backgroundColor = bgcolor; // 파란 배경색 지정
+  notification.className = "notification";
   eleNotificationDiv.appendChild(notification); // game Container안에 있는 DIV에 돔 생성
 };
 
