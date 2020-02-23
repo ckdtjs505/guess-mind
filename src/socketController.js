@@ -2,10 +2,14 @@ import { event } from "./variables";
 
 const socketController = socket => {
   socket.on(event.SET_NICKNAME, nickName => {
-    socket.broadcast.emit(event.JOIN_NEWUSER, {
-      nickName
-    });
+    socket.broadcast.emit(event.JOIN_NEWUSER, { nickName });
     socket.nickName = nickName;
+  });
+
+  socket.on(event.DISCONNECT, () => {
+    socket.broadcast.emit(event.DISCONNECTED, {
+      nickName: socket.nickName
+    });
   });
 
   socket.on("newMessage", message => {
