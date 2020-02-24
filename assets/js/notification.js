@@ -1,4 +1,4 @@
-const eleNotificationDiv = document.getElementById("jsNotification");
+const body = document.querySelector("body");
 
 // 알림시 새로운 창을 만들어주는 동작
 const fireNotification = (message, bgcolor) => {
@@ -6,7 +6,7 @@ const fireNotification = (message, bgcolor) => {
   notification.innerText = `${message}`; // div에 유저 이름 저장
   notification.style.backgroundColor = bgcolor; // 파란 배경색 지정
   notification.className = "notification";
-  eleNotificationDiv.appendChild(notification); // game Container안에 있는 DIV에 돔 생성
+  body.appendChild(notification); // game Container안에 있는 DIV에 돔 생성
 };
 
 // 채팅창에 합류시 나타나는 동작

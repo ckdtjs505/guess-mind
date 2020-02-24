@@ -1,10 +1,11 @@
 import "./login";
 import "./notification";
+import "./chat";
 
-const sendForm = document.getElementById("jsTest");
+// const sendForm = document.getElementById("jsTest");
 
-sendForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const input = sendForm.querySelector("input");
-  window.socket.emit("newMessage", input.value);
-});
+// sendForm.addEventListener("submit", e => {
+//   e.preventDefault();
+// const input = sendForm.querySelector("input");
+
+// });

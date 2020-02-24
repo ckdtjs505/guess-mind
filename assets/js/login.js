@@ -12,12 +12,6 @@ const logIn = nickName => {
   window.socket.emit(window.global.SET_NICKNAME, nickName);
 };
 
-window.socket.on("messageNotif", data => {
-  const div = document.createElement("div");
-  div.innerHTML = `<br><a>${data.nickName}</a><div>${data.message} </div>`;
-  body.appendChild(div);
-});
-
 // 접속시 로그인 체크
 if (nickName === null) {
   body.className = LOGGED_OUT;
