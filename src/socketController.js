@@ -13,7 +13,7 @@ const socketController = socket => {
   });
 
   socket.on("newMessage", message => {
-    socket.broadcast.emit("messageNotif", {
+    socket.broadcast.emit(event.SEND_MESSAGE, {
       message,
       nickName: socket.nickName || "Anon"
     });

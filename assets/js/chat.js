@@ -25,6 +25,6 @@ const handleMessageForm = e => {
 
 messageForm.addEventListener("submit", handleMessageForm);
 
-window.socket.on("messageNotif", ({ message, nickName }) => {
+window.socket.on(window.global.SEND_MESSAGE, ({ message, nickName }) => {
   messageInit(message, nickName);
 });

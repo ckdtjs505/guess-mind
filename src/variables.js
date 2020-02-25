@@ -2,5 +2,6 @@ export const event = {
   SET_NICKNAME: "setNickname",
   JOIN_NEWUSER: "joinNewUser",
   DISCONNECT: "disconnect",
-  DISCONNECTED: "disconnected"
+  DISCONNECTED: "disconnected",
+  SEND_MESSAGE: "sendMessage"
 };
