@@ -5,6 +5,7 @@
 @import "notification";
 @import "chat";
 @import "canvas";
+
 * {
   box-sizing: border-box;
 }
@@ -38,7 +39,7 @@ body {
 
   &.loggedIn {
     .gameContainer {
-      display: block;
+      display: flex;
     }
   }
 }

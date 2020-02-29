@@ -1,15 +1,5 @@
-body {
-  background-color: #f6f9fc;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
-}
-
 canvas {
-  width: 700px;
-  height: 700px;
+  margin-right: 3rem;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -23,7 +13,10 @@ canvas {
 }
 
 .controls .controls__range {
-  margin-bottom: 1.5rem;
+  input {
+    box-shadow: none;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .controls__btns button {
@@ -48,6 +41,10 @@ canvas {
 .colorBox {
   display: flex;
   margin-top: 1.5rem;
+}
+
+.colorBox .color:active {
+  transform: scale(1.1);
 }
 
 .color {

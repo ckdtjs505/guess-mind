@@ -1,8 +1,8 @@
 let canvasInfo = {
   // 켄버스 색
   color: "#2c2c2c",
-  width: 700,
-  height: 700,
+  width: 600,
+  height: 600,
   lineWidth: 2.5
 };
 
@@ -11,6 +11,7 @@ export class Canvas {
     this.paint = false;
 
     this.canvas = document.getElementById("jsCanvas");
+
     this.colorBox = document.querySelectorAll("#jsColorBox div");
     this.range = document.getElementById("jsRange");
     this.modeButton = document.getElementById("jsMode");
@@ -19,6 +20,9 @@ export class Canvas {
 
     this.setOpt(width, height);
     this.bindEventDefualt();
+
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
   }
 
   bindEventDefualt() {
@@ -61,6 +65,10 @@ export class Canvas {
       imgDownTag.download = "canvas.jpg";
       imgDownTag.href = imgUrl;
       imgDownTag.click();
+    });
+
+    this.range.addEventListener("change", () => {
+      this.ctx.lineWidth = this.range.value;
     });
 
     this.colorBox.forEach(ele => {
