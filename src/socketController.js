@@ -12,6 +12,20 @@ const socketController = socket => {
     });
   });
 
+  socket.on(event.DRAW_BEGINPOS, ({ x, y }) => {
+    socket.broadcast.emit(event.SEND_BEGINPOS, {
+      x,
+      y
+    });
+  });
+
+  socket.on(event.DRAW_ENDPOS, ({ x, y }) => {
+    socket.broadcast.emit(event.SEND_ENDPOS, {
+      x,
+      y
+    });
+  });
+
   socket.on("newMessage", message => {
     socket.broadcast.emit(event.SEND_MESSAGE, {
       message,

@@ -9,9 +9,9 @@ let canvasInfo = {
 export class Canvas {
   constructor(width, height) {
     this.paint = false;
-
     this.canvas = document.getElementById("jsCanvas");
-
+    this.canvas.width = this.canvas.offsetWidth;
+    this.canvas.height = this.canvas.offsetHeight;
     this.colorBox = document.querySelectorAll("#jsColorBox div");
     this.range = document.getElementById("jsRange");
     this.modeButton = document.getElementById("jsMode");
@@ -19,15 +19,12 @@ export class Canvas {
     this.ctx = this.canvas.getContext("2d");
 
     this.setOpt(width, height);
+    this.bindEventSocket();
     this.bindEventDefualt();
-
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
   }
 
   bindEventDefualt() {
     // 마우스 이동시
-
     this.canvas.addEventListener("mousemove", event => {
       let x = event.offsetX;
       let y = event.offsetY;
@@ -35,9 +32,11 @@ export class Canvas {
         // 그림을 그려준다
         this.ctx.beginPath();
         this.ctx.moveTo(x, y);
+        window.socket.emit(window.global.DRAW_BEGINPOS, { x, y });
       } else {
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
+        window.socket.emit(window.global.DRAW_ENDPOS, { x, y });
       }
     });
     // 마우스 클릭시
@@ -76,6 +75,18 @@ export class Canvas {
         this.ctx.strokeStyle = ele.style.backgroundColor;
         this.ctx.fillStyle = ele.style.backgroundColor;
       });
+    });
+  }
+
+  bindEventSocket() {
+    window.socket.on(window.global.SEND_BEGINPOS, ({ x, y }) => {
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, y);
+    });
+
+    window.socket.on(window.global.SEND_ENDPOS, ({ x, y }) => {
+      this.ctx.lineTo(x, y);
+      this.ctx.stroke();
     });
   }
 
