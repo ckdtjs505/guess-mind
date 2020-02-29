@@ -1,11 +1,6 @@
 import "./login";
 import "./notification";
 import "./chat";
+import { Canvas } from "./canvas";
 
-// const sendForm = document.getElementById("jsTest");
-
-// sendForm.addEventListener("submit", e => {
-//   e.preventDefault();
-// const input = sendForm.querySelector("input");
-
-// });
+new Canvas();
