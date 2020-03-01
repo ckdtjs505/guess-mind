@@ -68,6 +68,9 @@ export class Canvas {
     });
 
     this.modeButton.addEventListener("click", () => {
+      window.socket.emit(window.global.SEND_FILL, {
+        color: canvasInfo.fillColor
+      });
       this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
     });
 
@@ -99,6 +102,12 @@ export class Canvas {
 
     window.socket.on(window.global.SEND_ENDPOS, ({ x, y, color }) => {
       this.stroke(x, y, color);
+    });
+
+    window.socket.on(window.global.SEND_FILLED, ({ color }) => {
+      this.ctx.fillStyle = color;
+      this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
+      this.ctx.fillStyle = canvasInfo.fillColor;
     });
   }
 

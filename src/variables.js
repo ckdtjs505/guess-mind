@@ -7,5 +7,7 @@ export const event = {
   DRAW_BEGINPOS: "drawBeginpos",
   DRAW_ENDPOS: "drawEndpos",
   SEND_BEGINPOS: "sendPos",
-  SEND_ENDPOS: "sendEndpos"
+  SEND_ENDPOS: "sendEndpos",
+  SEND_FILL: "sendFill",
+  SEND_FILLED: "sendFilled"
 };

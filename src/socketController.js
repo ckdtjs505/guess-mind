@@ -20,6 +20,10 @@ const socketController = socket => {
     socket.broadcast.emit(event.SEND_ENDPOS, { x, y, color });
   });
 
+  socket.on(event.SEND_FILL, ({ color }) => {
+    socket.broadcast.emit(event.SEND_FILLED, { color });
+  });
+
   socket.on("newMessage", message => {
     socket.broadcast.emit(event.SEND_MESSAGE, {
       message,
