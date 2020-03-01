@@ -1,26 +1,36 @@
 let canvasInfo = {
   // 켄버스 색
-  color: "#2c2c2c",
   width: 600,
   height: 600,
+  fillColor: "white",
+  strokeColor: "black",
   lineWidth: 2.5
 };
 
 export class Canvas {
-  constructor(width, height) {
+  constructor() {
     this.paint = false;
     this.canvas = document.getElementById("jsCanvas");
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
+    this.ctx = this.canvas.getContext("2d");
+
+    this.setOpt();
+    this.buildUI();
+    this.bindEventSocket();
+    this.bindEventDefualt();
+  }
+
+  setOpt() {
+    this.canvas.width = canvasInfo.width;
+    this.canvas.height = canvasInfo.width;
+    this.ctx.fillStyle = canvasInfo.fillColor;
+    this.ctx.strokeStyle = canvasInfo.strokeColor;
+  }
+
+  buildUI() {
     this.colorBox = document.querySelectorAll("#jsColorBox div");
     this.range = document.getElementById("jsRange");
     this.modeButton = document.getElementById("jsMode");
     this.saveButton = document.getElementById("jsSave");
-    this.ctx = this.canvas.getContext("2d");
-
-    this.setOpt(width, height);
-    this.bindEventSocket();
-    this.bindEventDefualt();
   }
 
   bindEventDefualt() {
@@ -30,15 +40,18 @@ export class Canvas {
       let y = event.offsetY;
       if (!this.paint) {
         // 그림을 그려준다
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y);
+        this.beginPath(x, y);
         window.socket.emit(window.global.DRAW_BEGINPOS, { x, y });
       } else {
-        this.ctx.lineTo(x, y);
-        this.ctx.stroke();
-        window.socket.emit(window.global.DRAW_ENDPOS, { x, y });
+        this.stroke(x, y);
+        window.socket.emit(window.global.DRAW_ENDPOS, {
+          x,
+          y,
+          color: this.ctx.strokeStyle
+        });
       }
     });
+
     // 마우스 클릭시
     this.canvas.addEventListener("mousedown", () => {
       this.paint = true;
@@ -67,33 +80,38 @@ export class Canvas {
     });
 
     this.range.addEventListener("change", () => {
-      this.ctx.lineWidth = this.range.value;
+      this.ctx.lineWidth = canvasInfo.lineWidth = this.range.value;
     });
 
     this.colorBox.forEach(ele => {
       ele.addEventListener("click", () => {
-        this.ctx.strokeStyle = ele.style.backgroundColor;
-        this.ctx.fillStyle = ele.style.backgroundColor;
+        this.ctx.strokeStyle = canvasInfo.strokeColor =
+          ele.style.backgroundColor;
+        this.ctx.fillStyle = canvasInfo.fillColor = ele.style.backgroundColor;
       });
     });
   }
 
   bindEventSocket() {
     window.socket.on(window.global.SEND_BEGINPOS, ({ x, y }) => {
-      this.ctx.beginPath();
-      this.ctx.moveTo(x, y);
+      this.beginPath(x, y);
     });
 
-    window.socket.on(window.global.SEND_ENDPOS, ({ x, y }) => {
-      this.ctx.lineTo(x, y);
-      this.ctx.stroke();
+    window.socket.on(window.global.SEND_ENDPOS, ({ x, y, color }) => {
+      this.stroke(x, y, color);
     });
   }
 
-  setOpt(width, height) {
-    if (width === undefined) this.canvas.width = width = canvasInfo.width;
-    if (height === undefined) this.canvas.height = height = canvasInfo.height;
-    this.ctx.fillStyle = "white";
-    this.ctx.strokeStyle = "black";
+  beginPath(x, y) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y);
+  }
+  stroke(x, y, color) {
+    if (color === undefined) {
+      color = canvasInfo.fillColor;
+    }
+    this.ctx.lineTo(x, y);
+    this.ctx.stroke();
+    this.ctx.strokeStyle = color;
   }
 }
