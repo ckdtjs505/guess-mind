@@ -106,12 +106,17 @@ export class Canvas {
     this.ctx.beginPath();
     this.ctx.moveTo(x, y);
   }
-  stroke(x, y, color) {
-    if (color === undefined) {
-      color = canvasInfo.fillColor;
+
+  stroke(x, y, color = null) {
+    // color : null => 유저가 그릴 때
+    // color : 有 => socket을 통해 그려줄 때
+
+    // 소켓을 통해 그려질 때
+    if (color !== null) {
+      this.ctx.strokeStyle = color;
     }
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
-    this.ctx.strokeStyle = color;
+    this.ctx.strokeStyle = canvasInfo.strokeColor;
   }
 }
