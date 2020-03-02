@@ -12,7 +12,6 @@ export class Canvas {
     this.paint = false;
     this.canvas = document.getElementById("jsCanvas");
     this.ctx = this.canvas.getContext("2d");
-
     this.setOpt();
     this.buildUI();
     this.bindEventSocket();
@@ -54,7 +53,14 @@ export class Canvas {
 
     // 마우스 클릭시
     this.canvas.addEventListener("mousedown", () => {
-      this.paint = true;
+      if (this.modeButton.innerText === "FILL") {
+        window.socket.emit(window.global.SEND_FILL, {
+          color: canvasInfo.fillColor
+        });
+        this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
+      } else {
+        this.paint = true;
+      }
     });
 
     // 마우스가 화면을 떠났을 시
@@ -68,10 +74,11 @@ export class Canvas {
     });
 
     this.modeButton.addEventListener("click", () => {
-      window.socket.emit(window.global.SEND_FILL, {
-        color: canvasInfo.fillColor
-      });
-      this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
+      if (this.modeButton.innerText === "FILL") {
+        this.modeButton.innerText = "STROKE";
+      } else {
+        this.modeButton.innerText = "FILL";
+      }
     });
 
     this.saveButton.addEventListener("click", () => {
