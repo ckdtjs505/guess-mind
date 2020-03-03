@@ -9,15 +9,18 @@ let canvasInfo = {
 
 export class Canvas {
   constructor() {
-    this.paint = false;
+    this.paint = false; // fill, stroke
     this.canvas = document.getElementById("jsCanvas");
     this.ctx = this.canvas.getContext("2d");
+
     this.setOpt();
     this.buildUI();
     this.bindEventSocket();
     this.bindEventDefualt();
   }
 
+  // 켄버스의 가로 세로
+  // 그리기 색상 지정
   setOpt() {
     this.canvas.width = canvasInfo.width;
     this.canvas.height = canvasInfo.width;
@@ -124,10 +127,6 @@ export class Canvas {
   }
 
   stroke(x, y, color = null) {
-    // color : null => 유저가 그릴 때
-    // color : 有 => socket을 통해 그려줄 때
-
-    // 소켓을 통해 그려질 때
     if (color !== null) {
       this.ctx.strokeStyle = color;
     }

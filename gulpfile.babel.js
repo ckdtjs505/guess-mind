@@ -1,10 +1,13 @@
 import gulp from "gulp";
 import sass from "gulp-sass";
 import csso from "gulp-csso";
-import autoprefixer from "gulp-autoprefixer";
-import browserify from "gulp-browserify";
 import concat from "gulp-concat";
-import babel from "babelify";
+import autoprefixer from "gulp-autoprefixer";
+// import browserify from "gulp-browserify";
+import sourcemaps from "gulp-sourcemaps";
+// import babel from "babelify";
+import babel from "gulp-babel";
+
 import del from "del";
 
 sass.compiler = require("node-sass");
@@ -36,21 +39,24 @@ function styles() {
 }
 
 function scripts() {
-  return (
-    gulp
-      .src(paths.scripts.src, { sourcemaps: true })
-      .pipe(
-        browserify({
-          transform: [
-            babel.configure({
-              presets: ["@babel/preset-env"]
-            })
-          ]
-        })
-      )
-      // .pipe(concat("main.js"))
-      .pipe(gulp.dest(paths.scripts.dest))
-  );
+  return gulp
+    .src(paths.scripts.src)
+    .pipe(sourcemaps.init())
+    .pipe(
+      babel({
+        presets: ["@babel/preset-env"]
+      })
+      // browserify({
+      //   transform: [
+      //     babel.configure({
+      //       presets: ["@babel/preset-env"]
+      //     })
+      //   ]
+      // })
+    )
+    .pipe(concat("main.js"))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(paths.scripts.dest));
 }
 
 const clean = () => del(["src/static"]);
