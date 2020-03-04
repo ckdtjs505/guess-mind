@@ -1,12 +1,10 @@
 import gulp from "gulp";
 import sass from "gulp-sass";
 import csso from "gulp-csso";
-import concat from "gulp-concat";
 import autoprefixer from "gulp-autoprefixer";
-// import browserify from "gulp-browserify";
+import browserify from "gulp-browserify";
 import sourcemaps from "gulp-sourcemaps";
-// import babel from "babelify";
-import babel from "gulp-babel";
+import babelify from "babelify";
 
 import del from "del";
 
@@ -43,18 +41,14 @@ function scripts() {
     .src(paths.scripts.src)
     .pipe(sourcemaps.init())
     .pipe(
-      babel({
-        presets: ["@babel/preset-env"]
+      browserify({
+        transform: [
+          babelify.configure({
+            presets: ["@babel/preset-env"]
+          })
+        ]
       })
-      // browserify({
-      //   transform: [
-      //     babel.configure({
-      //       presets: ["@babel/preset-env"]
-      //     })
-      //   ]
-      // })
     )
-    .pipe(concat("main.js"))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.scripts.dest));
 }

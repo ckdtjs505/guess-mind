@@ -2,7 +2,7 @@ let canvasInfo = {
   // 켄버스 색
   width: 600,
   height: 600,
-  fillColor: "white",
+  fillColor: "black",
   strokeColor: "black",
   lineWidth: 2.5
 };
@@ -36,7 +36,6 @@ export class Canvas {
   }
 
   bindEventDefualt() {
-    // 마우스 이동시
     this.canvas.addEventListener("mousemove", event => {
       let x = event.offsetX;
       let y = event.offsetY;
@@ -56,6 +55,7 @@ export class Canvas {
 
     // 마우스 클릭시
     this.canvas.addEventListener("mousedown", () => {
+      // 마우스 버튼 값이 fill 이면
       if (this.modeButton.innerText === "FILL") {
         window.socket.emit(window.global.SEND_FILL, {
           color: canvasInfo.fillColor
