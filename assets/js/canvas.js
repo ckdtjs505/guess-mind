@@ -1,5 +1,6 @@
 let canvasInfo = {
   // 켄버스 색
+  mode: "STROKE", // FILL
   width: 600,
   height: 600,
   fillColor: "black",
@@ -9,7 +10,7 @@ let canvasInfo = {
 
 export class Canvas {
   constructor() {
-    this.paint = false; // fill, stroke
+    this.paint = false;
     this.canvas = document.getElementById("jsCanvas");
     this.ctx = this.canvas.getContext("2d");
 
@@ -37,13 +38,17 @@ export class Canvas {
 
   bindEventDefualt() {
     this.canvas.addEventListener("mousemove", event => {
+      // 마우스가 움직인 x,y 좌표를 기억한다.
       let x = event.offsetX;
       let y = event.offsetY;
+
       if (!this.paint) {
-        // 그림을 그려준다
+        // 보이지 않지만 시작점을 계속해서 찍는다.
         this.beginPath(x, y);
         window.socket.emit(window.global.DRAW_BEGINPOS, { x, y });
       } else {
+        // this paint === true
+        // 마우스가 눌리면 paint값이 true가 되므로
         this.stroke(x, y);
         window.socket.emit(window.global.DRAW_ENDPOS, {
           x,
@@ -53,15 +58,18 @@ export class Canvas {
       }
     });
 
-    // 마우스 클릭시
+    // 켄버스에서 마우스 클릭시
     this.canvas.addEventListener("mousedown", () => {
-      // 마우스 버튼 값이 fill 이면
-      if (this.modeButton.innerText === "FILL") {
+      // 캔버스 모드가 fill일 시
+      if (canvasInfo.mode === "FILL") {
         window.socket.emit(window.global.SEND_FILL, {
           color: canvasInfo.fillColor
         });
         this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
-      } else {
+      }
+
+      // 켄버스 모드기 stroke 일시
+      if (canvasInfo.mode === "STROKE") {
         this.paint = true;
       }
     });
@@ -76,11 +84,19 @@ export class Canvas {
       this.paint = false;
     });
 
+    // 모드 변경 버튼
     this.modeButton.addEventListener("click", () => {
-      if (this.modeButton.innerText === "FILL") {
-        this.modeButton.innerText = "STROKE";
-      } else {
-        this.modeButton.innerText = "FILL";
+      switch (canvasInfo.mode) {
+        // 채우기 일때
+        case "FILL":
+          this.modeButton.innerText = "STROKE";
+          canvasInfo.mode = "STROKE";
+          break;
+        // 그리기 일때
+        case "STROKE":
+          this.modeButton.innerText = "FILL";
+          canvasInfo.mode = "FILL";
+          break;
       }
     });
 
