@@ -131,9 +131,7 @@ export class Canvas {
     });
 
     window.socket.on(window.global.SEND_FILLED, ({ color }) => {
-      this.ctx.fillStyle = color;
-      this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
-      this.ctx.fillStyle = canvasInfo.fillColor;
+      this.fill(color);
     });
   }
 
@@ -149,5 +147,13 @@ export class Canvas {
     this.ctx.lineTo(x, y);
     this.ctx.stroke();
     this.ctx.strokeStyle = canvasInfo.strokeColor;
+  }
+
+  fill(color = null) {
+    if (color !== null) {
+      this.ctx.fillStyle = color;
+    }
+    this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
+    this.ctx.fillStyle = canvasInfo.fillColor;
   }
 }
