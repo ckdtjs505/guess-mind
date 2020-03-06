@@ -9,5 +9,7 @@ export const event = {
   SEND_BEGINPOS: "sendPos",
   SEND_ENDPOS: "sendEndpos",
   SEND_FILL: "sendFill",
-  SEND_FILLED: "sendFilled"
+  SEND_FILLED: "sendFilled",
+  UPDATE_JOINUSER: "updateJoinUser",
+  UPDATE_OUTUSER: "updateOutUser"
 };

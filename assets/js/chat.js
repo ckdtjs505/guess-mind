@@ -28,3 +28,11 @@ messageForm.addEventListener("submit", handleMessageForm);
 window.socket.on(window.global.SEND_MESSAGE, ({ message, nickName }) => {
   messageInit(message, nickName);
 });
+
+window.socket.on(window.global.UPDATE_JOINUSER, aSocket => {
+  console.log(aSocket);
+});
+
+window.socket.on(window.global.UPDATE_OUTUSER, aSocket => {
+  console.log(aSocket);
+});
