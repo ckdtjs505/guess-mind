@@ -1,38 +1,48 @@
-const message = document.getElementById("jsMessages");
-const messageForm = document.getElementById("jsSendMsg");
+export class Chat {
+  constructor() {
+    this.build();
+    this.bindEventDefualt();
+    this.bindEventSocket();
+  }
+  build() {
+    this.message = document.getElementById("jsMessages");
+    this.messageForm = document.getElementById("jsSendMsg");
+  }
 
-const messageInit = (msg, nickName) => {
-  const msgBox = document.createElement("li");
-  msgBox.innerHTML = `<span class="author ${nickName ? "out" : "self"}"> ${
-    nickName ? nickName : "You"
-  }  : ${msg}</span>`;
-  message.appendChild(msgBox);
-};
+  bindEventDefualt() {
+    this.messageForm.addEventListener("submit", event => {
+      // 새로고침 하지 않는다
+      event.preventDefault();
+      // input tag를 선택한다
+      const input = this.messageForm.querySelector("input");
+      // input 에 입력된 값을 가져온다
+      const { value } = input;
+      // 화면에 그려준다.
+      this.messageInit(value);
+      window.socket.emit("newMessage", input.value);
+      input.value = "";
+    });
+  }
 
-// 사용자가 입력한 값을 핸들링
-const handleMessageForm = e => {
-  // 새로고침 하지 않는다
-  e.preventDefault();
-  // input tag를 선택한다
-  const input = messageForm.querySelector("input");
-  // input 에 입력된 값을 가져온다
-  const { value } = input;
-  // 화면에 그려준다.
-  messageInit(value);
-  window.socket.emit("newMessage", input.value);
-  input.value = "";
-};
+  bindEventSocket() {
+    window.socket.on(window.global.SEND_MESSAGE, ({ message, nickName }) => {
+      this.messageInit(message, nickName);
+    });
 
-messageForm.addEventListener("submit", handleMessageForm);
+    window.socket.on(window.global.UPDATE_JOINUSER, aSocket => {
+      console.log(aSocket);
+    });
 
-window.socket.on(window.global.SEND_MESSAGE, ({ message, nickName }) => {
-  messageInit(message, nickName);
-});
+    window.socket.on(window.global.UPDATE_OUTUSER, aSocket => {
+      console.log(aSocket);
+    });
+  }
 
-window.socket.on(window.global.UPDATE_JOINUSER, aSocket => {
-  console.log(aSocket);
-});
-
-window.socket.on(window.global.UPDATE_OUTUSER, aSocket => {
-  console.log(aSocket);
-});
+  messageInit(msg, nickName) {
+    const msgBox = document.createElement("li");
+    msgBox.innerHTML = `<span class="author ${nickName ? "out" : "self"}"> ${
+      nickName ? nickName : "You"
+    }  : ${msg}</span>`;
+    this.message.appendChild(msgBox);
+  }
+}

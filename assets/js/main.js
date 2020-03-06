@@ -1,6 +1,7 @@
 import "./login";
 import "./notification";
-import "./chat";
+import { Chat } from "./chat";
 import { Canvas } from "./canvas";
 
 new Canvas();
+new Chat();
