@@ -7,9 +7,11 @@ export class Chat {
   build() {
     this.message = document.getElementById("jsMessages");
     this.messageForm = document.getElementById("jsSendMsg");
+    this.playerBoard = document.getElementById("jsPBoard");
   }
 
   bindEventDefualt() {
+    // 메시지 보내기
     this.messageForm.addEventListener("submit", event => {
       // 새로고침 하지 않는다
       event.preventDefault();
@@ -29,8 +31,13 @@ export class Chat {
       this.messageInit(message, nickName);
     });
 
-    window.socket.on(window.global.UPDATE_JOINUSER, aSocket => {
-      console.log(aSocket);
+    window.socket.on(window.global.UPDATE_JOINUSER, players => {
+      this.playerBoard.innerText = "";
+      players.forEach(player => {
+        const elePlayerSpan = document.createElement("span");
+        elePlayerSpan.innerText = `${player.nickName} : ${player.point}`;
+        this.playerBoard.appendChild(elePlayerSpan);
+      });
     });
 
     window.socket.on(window.global.UPDATE_OUTUSER, aSocket => {

@@ -36,4 +36,17 @@
         0 3px 7px -3px rgba(0, 0, 0, 0.3);
     }
   }
+  .player__board {
+    height: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .player__board span {
+    background-color: white;
+    border-radius: 5rem;
+    padding: 0.5rem;
+    margin: 0.5rem 1rem 0.5rem 0rem;
+    box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.25),
+      0 3px 7px -3px rgba(0, 0, 0, 0.3);
+  }
 }
