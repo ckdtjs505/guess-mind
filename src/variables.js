@@ -10,6 +10,8 @@ export const event = {
   SEND_ENDPOS: "sendEndpos",
   SEND_FILL: "sendFill",
   SEND_FILLED: "sendFilled",
-  UPDATE_JOINUSER: "updateJoinUser",
-  UPDATE_OUTUSER: "updateOutUser"
+  UPDATE_USERBOARD: "updateUserBoard",
+  UPDATE_OUTUSER: "updateOutUser",
+  GAMESTART_ALERT: "gameStart",
+  SEND_WORD: "sendWord"
 };

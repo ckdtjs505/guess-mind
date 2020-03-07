@@ -31,17 +31,13 @@ export class Chat {
       this.messageInit(message, nickName);
     });
 
-    window.socket.on(window.global.UPDATE_JOINUSER, players => {
+    window.socket.on(window.global.UPDATE_USERBOARD, players => {
       this.playerBoard.innerText = "";
       players.forEach(player => {
         const elePlayerSpan = document.createElement("span");
         elePlayerSpan.innerText = `${player.nickName} : ${player.point}`;
         this.playerBoard.appendChild(elePlayerSpan);
       });
-    });
-
-    window.socket.on(window.global.UPDATE_OUTUSER, aSocket => {
-      console.log(aSocket);
     });
   }
 
