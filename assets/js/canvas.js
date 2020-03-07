@@ -17,7 +17,9 @@ export class Canvas {
     this.setOpt();
     this.buildUI();
     this.bindEventSocket();
-    this.bindEventDefualt();
+
+    // 리더일 경우에만 이벤트를 바인드한다.
+    // this.bindEventDefualt();
   }
 
   // 켄버스의 가로 세로

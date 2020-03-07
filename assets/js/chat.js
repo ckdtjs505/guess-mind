@@ -7,7 +7,6 @@ export class Chat {
   build() {
     this.message = document.getElementById("jsMessages");
     this.messageForm = document.getElementById("jsSendMsg");
-    this.playerBoard = document.getElementById("jsPBoard");
   }
 
   bindEventDefualt() {
@@ -29,15 +28,6 @@ export class Chat {
   bindEventSocket() {
     window.socket.on(window.global.SEND_MESSAGE, ({ message, nickName }) => {
       this.messageInit(message, nickName);
-    });
-
-    window.socket.on(window.global.UPDATE_USERBOARD, players => {
-      this.playerBoard.innerText = "";
-      players.forEach(player => {
-        const elePlayerSpan = document.createElement("span");
-        elePlayerSpan.innerText = `${player.nickName} : ${player.point}`;
-        this.playerBoard.appendChild(elePlayerSpan);
-      });
     });
   }
 

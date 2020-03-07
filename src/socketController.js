@@ -22,7 +22,7 @@ const socketController = (socket, io) => {
       currentWord = word();
 
       // 게임이 시작됨을 모든 사용자에게 알린다
-      superBroadcast(event.GAMESTART_ALERT, { leader });
+      superBroadcast(event.GAMESTART_ALERT);
       // 리더에게만 그릴 단어를 보낸다.
       io.to(leader.id).emit(event.SEND_WORD, { currentWord });
     }
