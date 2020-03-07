@@ -13,7 +13,6 @@ export class Player {
   buildUI() {
     this.playerBoard = document.getElementById("jsPBoard");
   }
-  bindEventDefualt() {}
   bindEventSocket() {
     // player Board Controll
     window.socket.on(window.global.UPDATE_USERBOARD, players => {
@@ -34,6 +33,7 @@ export class Player {
     window.socket.on(window.global.SEND_WORD, ({ currentWord }) => {
       alert(`${currentWord}를 그리세요 `);
       this.canvas.bindEventDefualt();
+      this.canvas.showControls();
     });
   }
 }

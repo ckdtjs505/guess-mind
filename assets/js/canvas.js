@@ -34,6 +34,7 @@ export class Canvas {
   buildUI() {
     this.colorBox = document.querySelectorAll("#jsColorBox div");
     this.range = document.getElementById("jsRange");
+    this.controls = document.querySelector(".controls");
     this.modeButton = document.getElementById("jsMode");
     this.saveButton = document.getElementById("jsSave");
   }
@@ -157,5 +158,13 @@ export class Canvas {
     }
     this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
     this.ctx.fillStyle = canvasInfo.fillColor;
+  }
+
+  removeControls() {
+    this.controls.classList.add("hide");
+  }
+
+  showControls() {
+    this.controls.classList.remove("hide");
   }
 }
