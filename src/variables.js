@@ -13,5 +13,6 @@ export const event = {
   UPDATE_USERBOARD: "updateUserBoard",
   UPDATE_OUTUSER: "updateOutUser",
   GAMESTART_ALERT: "gameStart",
+  GAMEFINISH_ALERT: "gameFinish",
   SEND_WORD: "sendWord"
 };

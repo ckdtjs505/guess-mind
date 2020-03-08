@@ -1,6 +1,9 @@
-import "./login";
+import { Login } from "./login";
+import { Player } from "./player";
 import "./notification";
 
-import { Player } from "./player";
+const login = new Login();
 
-new Player();
+if (login.loginCheck()) {
+  new Player();
+}
