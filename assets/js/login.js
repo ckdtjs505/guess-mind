@@ -1,3 +1,5 @@
+import { Player } from "./player";
+
 const NICKNAME = "nickname";
 const LOGGED_OUT = "loggedOut";
 const LOGGED_IN = "loggedIn";
@@ -28,6 +30,7 @@ export class Login {
       // 값을 비워준다.
       input.value = "";
       // 게임을 시작한다.
+      new Player();
     });
   }
   // 접속시 로그인 체크

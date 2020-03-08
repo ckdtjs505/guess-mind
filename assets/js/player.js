@@ -11,10 +11,7 @@ export class Player {
     this.chat = new Chat();
     this.canvas = new Canvas();
     this.playerBoard = document.getElementById("jsPBoard");
-  }
-
-  endGame() {
-    // 켄버스, 채팅 이벤트를 삭제한다.
+    this.canvasState = document.getElementById("canvasState");
   }
 
   bindEventSocket() {
@@ -30,22 +27,22 @@ export class Player {
 
     // 게임시작을 알려주는 함수
     window.socket.on(window.global.GAMESTART_ALERT, () => {
-      console.log("게임 시작");
+      this.canvasState.innerHTML = "게임 시작";
+      this.canvas.showCanvas();
+      this.canvas.removeCanvas();
     });
 
     // 리더에게 단어 알려주는 함수
     window.socket.on(window.global.SEND_WORD, ({ currentWord }) => {
-      console.log(`${currentWord}를 그리세요 `);
-      this.startGame();
+      this.canvasState.innerHTML = `게임 시작 : ${currentWord}를 그리세요 `;
       this.canvas.bindEventDefualt();
       this.canvas.showControls();
     });
 
     window.socket.on(window.global.GAMEFINISH_ALERT, () => {
-      console.log("게임을 종료합니다");
-      // this.canvas.unbindEventDefault();
+      this.canvasState.innerHTML = "게임 종료... 잠시만 기다려주세요 ";
+      this.canvas.unbindEventDefault();
       this.canvas.removeControls();
-      this.endGame();
     });
   }
 }
