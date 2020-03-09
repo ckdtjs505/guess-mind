@@ -11,11 +11,13 @@ export class Login {
     this.loginCheck();
   }
 
-  buildUI() {
-    this.body = document.querySelector("body");
-    this.loginFrom = document.getElementById("jsLogin");
-    this.nickName = localStorage.getItem(NICKNAME);
-  }
+// 접속시 로그인 체크
+if (nickName === null) {
+  body.className = LOGGED_OUT;
+} else {
+  body.className = LOGGED_IN;
+  logIn(nickName);
+}
 
   bindEventDefualt() {
     this.loginFrom.addEventListener("submit", e => {
