@@ -248,7 +248,7 @@ export class Canvas {
     this.controls.classList.add("hide");
   }
 
-  removeCanvas() {
+  paintClearCanvas() {
     this.ctx.fillStyle = "white";
     this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
   }

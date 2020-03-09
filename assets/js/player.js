@@ -29,7 +29,7 @@ export class Player {
     window.socket.on(window.global.GAMESTART_ALERT, () => {
       this.canvasState.innerHTML = "게임 시작";
       this.canvas.showCanvas();
-      this.canvas.removeCanvas();
+      this.canvas.paintClearCanvas();
     });
 
     // 리더에게 단어 알려주는 함수
@@ -39,6 +39,7 @@ export class Player {
       this.canvas.showControls();
     });
 
+    // 게임 종료를 알려주는 함수
     window.socket.on(window.global.GAMEFINISH_ALERT, () => {
       this.canvasState.innerHTML = "게임 종료... 잠시만 기다려주세요 ";
       this.canvas.unbindEventDefault();

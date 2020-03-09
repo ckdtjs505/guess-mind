@@ -8,6 +8,7 @@ export class Login {
   constructor() {
     this.buildUI();
     this.bindEventDefualt();
+    this.loginCheck();
   }
 
   buildUI() {
@@ -29,24 +30,21 @@ export class Login {
       this.logIn(input.value);
       // 값을 비워준다.
       input.value = "";
-      // 게임을 시작한다.
-      new Player();
     });
   }
   // 접속시 로그인 체크
   loginCheck() {
     if (this.nickName === null) {
       this.body.className = LOGGED_OUT;
-      return false;
     } else {
       this.body.className = LOGGED_IN;
       this.logIn(this.nickName);
-      return true;
     }
   }
 
   logIn(nickName) {
     // nickname을 socket에 지정한다.
+    new Player();
     window.socket.emit(window.global.SET_NICKNAME, nickName);
   }
 }
