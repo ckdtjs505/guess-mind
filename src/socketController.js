@@ -70,7 +70,6 @@ const socketController = (socket, io) => {
     // 유저가 나감으로 총인원이 1명이 되면 게임을 종료한다.
     if (gameState && players.length === 1) {
       gameState = false;
-      console.log("game finish");
       broadcast(event.GAMEFINISH_ALERT);
     }
 

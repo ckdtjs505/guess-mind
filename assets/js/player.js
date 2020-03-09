@@ -30,6 +30,7 @@ export class Player {
       this.canvasState.innerHTML = "게임 시작";
       this.canvas.showCanvas();
       this.canvas.paintClearCanvas();
+      this.chat.clear();
     });
 
     // 리더에게 단어 알려주는 함수
@@ -37,6 +38,7 @@ export class Player {
       this.canvasState.innerHTML = `게임 시작 : ${currentWord}를 그리세요 `;
       this.canvas.bindEventDefualt();
       this.canvas.showControls();
+      this.chat.hideMessageForm();
     });
 
     // 게임 종료를 알려주는 함수

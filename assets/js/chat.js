@@ -38,4 +38,16 @@ export class Chat {
     }  : ${msg}</span>`;
     this.message.appendChild(msgBox);
   }
+
+  hideMessageForm() {
+    this.messageForm.classList.add("hide");
+  }
+
+  showMessageForm() {
+    this.messageForm.classList.remove("hide");
+  }
+
+  clear() {
+    this.message.innerHTML = "";
+  }
 }
