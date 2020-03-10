@@ -11,13 +11,11 @@ export class Login {
     this.loginCheck();
   }
 
-// 접속시 로그인 체크
-if (nickName === null) {
-  body.className = LOGGED_OUT;
-} else {
-  body.className = LOGGED_IN;
-  logIn(nickName);
-}
+  buildUI() {
+    this.body = document.querySelector("body");
+    this.loginFrom = document.getElementById("jsLogin");
+    this.nickName = localStorage.getItem(NICKNAME);
+  }
 
   bindEventDefualt() {
     this.loginFrom.addEventListener("submit", e => {
@@ -34,6 +32,7 @@ if (nickName === null) {
       input.value = "";
     });
   }
+
   // 접속시 로그인 체크
   loginCheck() {
     if (this.nickName === null) {
@@ -46,7 +45,7 @@ if (nickName === null) {
 
   logIn(nickName) {
     // nickname을 socket에 지정한다.
-    new Player();
     window.socket.emit(window.global.SET_NICKNAME, nickName);
+    new Player();
   }
 }
