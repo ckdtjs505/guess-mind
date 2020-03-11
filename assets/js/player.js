@@ -44,7 +44,6 @@ export class Player {
     // 게임 종료를 알려주는 함수
     window.socket.on(window.global.GAMEFINISH_ALERT, () => {
       this.canvasState.innerHTML = "게임 종료... 잠시만 기다려주세요 ";
-      this.canvas.unbindEventDefault();
       this.canvas.removeControls();
     });
   }
