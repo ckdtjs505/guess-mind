@@ -170,7 +170,6 @@ export class Canvas {
   }
 
   removeControls() {
-    this.canvas.classList.add("hide");
     this.controls.classList.add("hide");
   }
 

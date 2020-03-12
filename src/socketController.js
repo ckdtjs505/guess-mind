@@ -97,6 +97,12 @@ const socketController = (socket, io) => {
       message,
       nickName: socket.nickName || "Anon"
     });
+
+    if (message === currentWord) {
+      superBroadcast(event.CORRECT_MESSAGE, { nickName: socket.nickName });
+      setOpt();
+      start();
+    }
   });
 };
 
