@@ -4,13 +4,14 @@ let canvasInfo = {
   width: 600,
   height: 600,
   fillColor: "white",
-  strokeColor: "white",
+  strokeColor: "black",
   lineWidth: 2.5
 };
 
 export class Canvas {
   constructor() {
     this.paint = false;
+    this.canvasDraw = true;
     this.canvas = document.getElementById("jsCanvas");
     this.ctx = this.canvas.getContext("2d");
 
@@ -38,8 +39,13 @@ export class Canvas {
     this.modeButton = document.getElementById("jsMode");
     this.saveButton = document.getElementById("jsSave");
   }
+  unbindEventDefault() {
+    this.canvasDraw = false;
+  }
 
   bindEventDefualt() {
+    this.canvasDraw = true;
+
     this.canvas.addEventListener("mousemove", event => {
       // 마우스가 움직인 x,y 좌표를 기억한다.
       let x = event.offsetX;
@@ -72,7 +78,7 @@ export class Canvas {
       }
 
       // 켄버스 모드기 stroke 일시
-      if (canvasInfo.mode === "STROKE") {
+      if (canvasInfo.mode === "STROKE" && this.canvasDraw === true) {
         this.paint = true;
       }
     });

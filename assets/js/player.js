@@ -25,7 +25,6 @@ export class Player {
           val.innerText = `${nickName} : ${correctPoint}`;
         }
       });
-      window.socket.on(window.global.SEND_WORD);
     });
 
     // player Board Controll
@@ -42,6 +41,7 @@ export class Player {
     window.socket.on(window.global.GAMESTART_ALERT, () => {
       this.canvasState.innerHTML = "게임 시작";
       this.canvas.showCanvas();
+      this.canvas.unbindEventDefault();
       this.canvas.paintClearCanvas();
       this.canvas.removeControls();
       this.chat.showMessageForm();
