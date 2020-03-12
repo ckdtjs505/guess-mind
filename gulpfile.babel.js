@@ -60,6 +60,6 @@ function watchFiles() {
   gulp.watch(paths.scripts.watch, scripts);
 }
 
-const dev = gulp.series(clean, styles, scripts, watchFiles);
+const dev = gulp.series(clean, styles, scripts);
 
 export default dev;

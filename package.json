@@ -6,7 +6,10 @@
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/server --ignore assets/ --ignore src/static",
     "dev:assets": "gulp",
-    "start":  "nodemon --exec babel-node src/server --ignore assets/ --ignore src/static",
+    "build:assets": "gulp",
+    "build:server": "babel src --out-dir build",
+    "copyAll": "cp -R src/static build && cp -R src/views build ",
+    "start": "gulp && npm run build:server && npm run copyAll && node build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +23,7 @@
   },
   "homepage": "https://github.com/ckdtjs505/guess-mind#readme",
   "dependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",

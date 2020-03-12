@@ -1,5 +1,5 @@
 import { event } from "./variables";
-import { word } from "../assets/js/words";
+import { word } from "./words";
 
 let players = [];
 let leader = "";
