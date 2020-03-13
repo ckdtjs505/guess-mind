@@ -13,16 +13,13 @@ const socketController = (socket, io) => {
   const superBroadcast = (event, data) => io.emit(event, data);
   const updateUserBoard = () => superBroadcast(event.UPDATE_USERBOARD, players);
 
-  const setOpt = () => {
+  const start = () => {
     // 게임시작
     gameState = true;
     // 리더를 선정
     leader = chooseReader();
     // 단어를 선정
     currentWord = word();
-  };
-
-  const start = () => {
     // 게임이 시작됨을 모든 사용자에게 알린다
     superBroadcast(event.GAMESTART_ALERT);
     // 리더에게만 그릴 단어를 보낸다.
@@ -33,7 +30,6 @@ const socketController = (socket, io) => {
     console.log(gameState, players);
     // 게임을 시작 상태로 바꾼다.
     if (gameState === false) {
-      setOpt();
       start();
     }
   };
@@ -75,7 +71,6 @@ const socketController = (socket, io) => {
 
     // 종료된 유저가 리더라면, 리더른 변경한다.
     if (gameState && socket.nickName === leader.nickName) {
-      setOpt();
       start();
     }
   });
@@ -100,7 +95,6 @@ const socketController = (socket, io) => {
 
     if (message === currentWord) {
       superBroadcast(event.CORRECT_MESSAGE, { nickName: socket.nickName });
-      setOpt();
       start();
     }
   });

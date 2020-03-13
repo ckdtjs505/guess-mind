@@ -18,9 +18,7 @@ export class Canvas {
     this.setOpt();
     this.buildUI();
     this.bindEventSocket();
-
-    // 리더일 경우에만 이벤트를 바인드한다.
-    // this.bindEventDefualt();
+    this.bindEventDefualt();
   }
 
   // 켄버스의 가로 세로
@@ -39,13 +37,8 @@ export class Canvas {
     this.modeButton = document.getElementById("jsMode");
     this.saveButton = document.getElementById("jsSave");
   }
-  unbindEventDefault() {
-    this.canvasDraw = false;
-  }
 
   bindEventDefualt() {
-    this.canvasDraw = true;
-
     this.canvas.addEventListener("mousemove", event => {
       // 마우스가 움직인 x,y 좌표를 기억한다.
       let x = event.offsetX;
@@ -171,6 +164,10 @@ export class Canvas {
     this.canvas.classList.remove("hide");
   }
 
+  removeCanvas() {
+    this.canvas.classList.add("hide");
+  }
+
   showControls() {
     this.controls.classList.remove("hide");
   }
@@ -179,8 +176,16 @@ export class Canvas {
     this.controls.classList.add("hide");
   }
 
-  paintClearCanvas() {
+  clearCanvas() {
     this.ctx.fillStyle = "white";
     this.ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
+  }
+
+  ableDraw() {
+    this.canvasDraw = false;
+  }
+
+  enableDraw() {
+    this.canvasDraw = true;
   }
 }

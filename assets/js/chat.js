@@ -5,6 +5,7 @@ export class Chat {
     this.bindEventSocket();
   }
   build() {
+    this.chat = document.querySelector(".chat");
     this.message = document.getElementById("jsMessages");
     this.messageForm = document.getElementById("jsSendMsg");
   }
@@ -45,6 +46,14 @@ export class Chat {
 
   showMessageForm() {
     this.messageForm.classList.remove("hide");
+  }
+
+  showChat() {
+    this.chat.classList.remove("hide");
+  }
+
+  removeChat() {
+    this.chat.classList.add("hide");
   }
 
   clear() {
