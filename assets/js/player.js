@@ -37,8 +37,12 @@ export class Player {
       });
     });
 
-    // 게임시작을 알려주는 함수
     window.socket.on(window.global.GAMESTART_ALERT, () => {
+      this.canvasState.innerHTML = "곧 문제 나갑니다";
+    });
+
+    // 게임시작
+    window.socket.on(window.global.GAMESTART, () => {
       this.canvasState.innerHTML = "게임 시작";
       this.canvas.showCanvas(); // 캔버스를 등장
       this.canvas.enableDraw(); // 그림을 못그리게

@@ -12,7 +12,8 @@ export const event = {
   SEND_FILLED: "sendFilled",
   UPDATE_USERBOARD: "updateUserBoard",
   UPDATE_OUTUSER: "updateOutUser",
-  GAMESTART_ALERT: "gameStart",
+  GAMESTART: "gameStart",
+  GAMESTART_ALERT: "gameStartAlert",
   GAMEFINISH_ALERT: "gameFinish",
   SEND_WORD: "sendWord",
   CORRECT_MESSAGE: "correctMessage"

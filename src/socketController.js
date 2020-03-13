@@ -20,14 +20,17 @@ const socketController = (socket, io) => {
     leader = chooseReader();
     // 단어를 선정
     currentWord = word();
-    // 게임이 시작됨을 모든 사용자에게 알린다
+
     superBroadcast(event.GAMESTART_ALERT);
-    // 리더에게만 그릴 단어를 보낸다.
-    io.to(leader.id).emit(event.SEND_WORD, { currentWord });
+    setTimeout(() => {
+      // 게임이 시작됨을 모든 사용자에게 알린다
+      superBroadcast(event.GAMESTART);
+      // 리더에게만 그릴 단어를 보낸다.
+      io.to(leader.id).emit(event.SEND_WORD, { currentWord });
+    }, 3000);
   };
 
   const gameStart = () => {
-    console.log(gameState, players);
     // 게임을 시작 상태로 바꾼다.
     if (gameState === false) {
       start();
