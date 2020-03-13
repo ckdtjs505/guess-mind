@@ -182,10 +182,10 @@ export class Canvas {
   }
 
   ableDraw() {
-    this.canvasDraw = false;
+    this.canvasDraw = true;
   }
 
   enableDraw() {
-    this.canvasDraw = true;
+    this.canvasDraw = false;
   }
 }
