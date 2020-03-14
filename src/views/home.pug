@@ -10,7 +10,9 @@ html(lang="en")
                 input(placeholder="Whats your nickname" type="text")
         .gameContainer#jsGame
             .canvas
-                .canvas__state#canvasState
+                .canvas__state
+                    .canvasState#canvasState
+                    progress#jsProgress(value="30" max="30")
                 canvas#jsCanvas
                 .controls.hide
                     .controls__range

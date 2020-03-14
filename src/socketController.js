@@ -5,6 +5,8 @@ let players = [];
 let leader = "";
 let gameState = false;
 let currentWord = null;
+let time = 30;
+let timer;
 
 const chooseReader = () => players[Math.floor(Math.random() * players.length)];
 
@@ -27,6 +29,16 @@ const socketController = (socket, io) => {
       superBroadcast(event.GAMESTART);
       // 리더에게만 그릴 단어를 보낸다.
       io.to(leader.id).emit(event.SEND_WORD, { currentWord });
+      // 종료될때까지 카운트를 보낸다.
+      timer = setInterval(() => {
+        time -= 1;
+        superBroadcast(event.SEND_TIME, { time });
+        if (time === 0) {
+          clearInterval(timer);
+          time = 30;
+          start();
+        }
+      }, 1000);
     }, 3000);
   };
 
@@ -98,6 +110,8 @@ const socketController = (socket, io) => {
 
     if (message === currentWord) {
       superBroadcast(event.CORRECT_MESSAGE, { nickName: socket.nickName });
+      clearInterval(timer);
+      time = 30;
       start();
     }
   });

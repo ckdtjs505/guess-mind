@@ -12,6 +12,7 @@ export class Player {
     this.canvas = new Canvas();
     this.playerBoard = document.getElementById("jsPBoard");
     this.canvasState = document.getElementById("canvasState");
+    this.progressState = document.getElementById("jsProgress");
   }
 
   bindEventSocket() {
@@ -38,12 +39,12 @@ export class Player {
     });
 
     window.socket.on(window.global.GAMESTART_ALERT, () => {
-      this.canvasState.innerHTML = "곧 문제 나갑니다";
+      this.createGameMessage("곧 문제 나갑니다");
     });
 
     // 게임시작
     window.socket.on(window.global.GAMESTART, () => {
-      this.canvasState.innerHTML = "게임 시작";
+      this.createGameMessage("게임 시작");
       this.canvas.showCanvas(); // 캔버스를 등장
       this.canvas.enableDraw(); // 그림을 못그리게
       this.canvas.clearCanvas(); // 이전에 그린 캔버스 지우기
@@ -55,7 +56,7 @@ export class Player {
 
     // 리더에게 단어 알려주는 함수
     window.socket.on(window.global.SEND_WORD, ({ currentWord }) => {
-      this.canvasState.innerHTML = `게임 시작 : ${currentWord}를 그리세요 `;
+      this.createGameMessage(`${currentWord}를 그리세요`);
       this.canvas.ableDraw(); // 그림을 그릴수 있게
       this.canvas.showControls(); // 그림 컨트롤 할 수 있게
       this.chat.hideMessageForm(); // 채팅 메시지 삭제
@@ -69,5 +70,14 @@ export class Player {
       this.chat.showMessageForm();
       this.chat.removeChat();
     });
+
+    // 시간을 받는 함수
+    window.socket.on(window.global.SEND_TIME, ({ time }) => {
+      this.progressState.value = time;
+    });
+  }
+
+  createGameMessage(word) {
+    this.canvasState.innerHTML = word;
   }
 }
