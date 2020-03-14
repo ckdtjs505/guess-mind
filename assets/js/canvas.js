@@ -36,6 +36,7 @@ export class Canvas {
     this.range = document.getElementById("jsRange");
     this.modeButton = document.getElementById("jsMode");
     this.saveButton = document.getElementById("jsSave");
+    this.eraseButton = document.getElementById("jsErase");
   }
 
   bindEventDefualt() {
@@ -113,6 +114,14 @@ export class Canvas {
 
     this.range.addEventListener("change", () => {
       this.ctx.lineWidth = canvasInfo.lineWidth = this.range.value;
+    });
+
+    this.eraseButton.addEventListener("click", () => {
+      window.socket.emit(window.global.SEND_FILL, {
+        color: "white"
+      });
+      this.clearCanvas();
+      this.ctx.fillStyle = canvasInfo.fillColor;
     });
 
     this.colorBox.forEach(ele => {
