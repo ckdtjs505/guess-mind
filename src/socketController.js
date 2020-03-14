@@ -31,11 +31,12 @@ const socketController = (socket, io) => {
       io.to(leader.id).emit(event.SEND_WORD, { currentWord });
       // 종료될때까지 카운트를 보낸다.
       timer = setInterval(() => {
-        time -= 1;
         superBroadcast(event.SEND_TIME, { time });
+        time -= 1;
         if (time === 0) {
           clearInterval(timer);
           time = 30;
+          superBroadcast(event.TIMEOVER);
           start();
         }
       }, 1000);
@@ -82,10 +83,14 @@ const socketController = (socket, io) => {
     if (gameState && players.length === 1) {
       gameState = false;
       broadcast(event.GAMEFINISH_ALERT);
+      clearInterval(timer);
+      time = 30;
     }
 
     // 종료된 유저가 리더라면, 리더른 변경한다.
     if (gameState && socket.nickName === leader.nickName) {
+      clearInterval(timer);
+      time = 30;
       start();
     }
   });
@@ -109,7 +114,10 @@ const socketController = (socket, io) => {
     });
 
     if (message === currentWord) {
-      superBroadcast(event.CORRECT_MESSAGE, { nickName: socket.nickName });
+      superBroadcast(event.CORRECT_MESSAGE, {
+        nickName: socket.nickName,
+        message
+      });
       clearInterval(timer);
       time = 30;
       start();

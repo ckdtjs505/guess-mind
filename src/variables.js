@@ -17,5 +17,6 @@ export const event = {
   GAMEFINISH_ALERT: "gameFinish",
   SEND_WORD: "sendWord",
   SEND_TIME: "sendTime",
-  CORRECT_MESSAGE: "correctMessage"
+  CORRECT_MESSAGE: "correctMessage",
+  TIMEOVER: "timeover"
 };

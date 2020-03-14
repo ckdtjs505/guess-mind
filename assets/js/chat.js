@@ -31,6 +31,13 @@ export class Chat {
       this.messageInit(message, nickName);
     });
   }
+  collectMessage(nickName, message) {
+    const msgBox = document.createElement("li");
+    msgBox.innerHTML = `<span class="author ${
+      nickName ? "out" : "self"
+    }"> ${nickName}님이 ${message}을 맞췄습니다</span>`;
+    this.message.appendChild(msgBox);
+  }
 
   messageInit(msg, nickName) {
     const msgBox = document.createElement("li");

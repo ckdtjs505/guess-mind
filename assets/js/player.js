@@ -16,8 +16,15 @@ export class Player {
   }
 
   bindEventSocket() {
-    window.socket.on(window.global.CORRECT_MESSAGE, ({ nickName }) => {
-      alert(`${nickName}님이 맞췄습니다`);
+    window.socket.on(window.global.TIMEOVER, () => {
+      this.createGameMessage("시간 초과");
+      this.progressState.classList.add("hide");
+    });
+
+    // 유저가 정답을 맞췄을시
+    window.socket.on(window.global.CORRECT_MESSAGE, ({ nickName, message }) => {
+      this.chat.collectMessage(nickName, message);
+      this.progressState.classList.add("hide");
       this.playerBoard.childNodes.forEach(val => {
         const correctNickName = val.innerHTML.split(" ")[0];
         let correctPoint = parseInt(val.innerHTML.split(" ")[2]);
@@ -40,11 +47,13 @@ export class Player {
 
     window.socket.on(window.global.GAMESTART_ALERT, () => {
       this.createGameMessage("곧 문제 나갑니다");
+      this.progressState.classList.add("hide");
     });
 
     // 게임시작
     window.socket.on(window.global.GAMESTART, () => {
       this.createGameMessage("게임 시작");
+      this.progressState.classList.remove("hide");
       this.canvas.showCanvas(); // 캔버스를 등장
       this.canvas.enableDraw(); // 그림을 못그리게
       this.canvas.clearCanvas(); // 이전에 그린 캔버스 지우기
